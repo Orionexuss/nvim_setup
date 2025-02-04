@@ -76,4 +76,11 @@ return require('packer').startup(function(use)
 	use 'vim-airline/vim-airline-themes'
 	use 'tpope/vim-fugitive'             -- Soporte para Git
 	use 'airblade/vim-gitgutter' 
+
+	-- Identation lines
+	use {"lukas-reineke/indent-blankline.nvim",
+	config = function()
+		require('ibl').setup()
+		IBLEnable= true
+	end}
 end)
