@@ -1,4 +1,17 @@
 
+-- Configurar vim-rooter para cambiar automáticamente al directorio raíz del proyecto
+vim.g.rooter_patterns = { '.git/', 'Makefile', 'package.json' }
+
+-- Evitar mensajes de cambio de directorio
+vim.g.rooter_silent_chdir = 1
+
+
+vim.g.python3_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
+vim.g.python_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
+vim.cmd("set verbosefile=~/.local/state/nvim/log")
+vim.cmd("set verbose=15")
+
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -57,6 +70,9 @@ vim.opt.scrolloff = 10
 -- clear highlights on search when pressing <esc> in normal mode
 --  see `:help hlsearch`
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
+
+-- Neotre toggle
+vim.keymap.set("n", "<A-n>", "<cmd>Neotree toggle<cr>")
 
 -- diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "open diagnostic [q]uickfix list" })

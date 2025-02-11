@@ -5,47 +5,47 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Telescope: Fuzzy finder and more
+    -- Telescope: Fuzzy finder for files, buffers, etc.
     use {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.8', -- Specific tag for stability
-        requires = { {'nvim-lua/plenary.nvim'} }
+        tag = '0.1.8', -- Use a specific tag for stability
+        requires = { {'nvim-lua/plenary.nvim'} } -- Required dependency
     }
 
-    -- Treesitter: Syntax highlighting and more
+    -- Treesitter: Syntax highlighting, code navigation, and more
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
+            ts_update() -- Ensure parsers are up-to-date
         end,
     }
 
-    -- Visual Multi: Multiple cursors for editing
+    -- Visual Multi: Support for multiple cursors
     use "mg979/vim-visual-multi"
 
-    -- Cyberdream Theme
+    -- Cyberdream Theme: Aesthetic colorscheme
     use { "scottmckendry/cyberdream.nvim" }
 
-    -- Neo-tree: File explorer
+    -- Neo-tree: File explorer with enhanced UI
     use {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v3.x", -- Use the latest stable version
         requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- Icons for a better UI
-            "MunifTanjim/nui.nvim", -- UI components
+            "nvim-lua/plenary.nvim", -- Core Lua utilities
+            "nvim-tree/nvim-web-devicons", -- Icons for better visualization
+            "MunifTanjim/nui.nvim", -- UI components library
         }
     }
 
-    -- Mason: Manage LSP servers, formatters, linters
+    -- Mason: Manage LSP servers, linters, and formatters
     use { "williamboman/mason.nvim" }
 
     -- nvim-cmp: Autocompletion plugin
-    use({
+    use {
         "hrsh7th/nvim-cmp",
         requires = {
-            "hrsh7th/cmp-nvim-lsp",    -- LSP source for nvim-cmp
+            "hrsh7th/cmp-nvim-lsp",    -- LSP completions
             "hrsh7th/cmp-buffer",      -- Buffer completions
             "hrsh7th/cmp-path",        -- Path completions
             "hrsh7th/cmp-cmdline",     -- Command-line completions
@@ -53,34 +53,39 @@ return require('packer').startup(function(use)
                 "L3MON4D3/LuaSnip",    -- Snippet engine
                 run = "make install_jsregexp" -- Ensure regex support is installed
             },
-            "saadparwaiz1/cmp_luasnip" -- LuaSnip integration with nvim-cmp
+            "saadparwaiz1/cmp_luasnip" -- Integration of LuaSnip with nvim-cmp
         },
         config = function()
-            require("setup_cmp") -- Custom nvim-cmp configuration
-        end
-    })
-
-    -- LSP Config: Base for configuring LSP servers
-    use "neovim/nvim-lspconfig"
-
-    -- Comment.nvim: Easily comment code
-    use {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
+            require("setup_cmp") -- Load custom nvim-cmp configuration
         end
     }
 
-    -- Git branch shown at the bottom
-	use 'vim-airline/vim-airline'
-	use 'vim-airline/vim-airline-themes'
-	use 'tpope/vim-fugitive'             -- Soporte para Git
-	use 'airblade/vim-gitgutter' 
+    -- LSP Config: Base configuration for LSP servers
+    use "neovim/nvim-lspconfig"
 
-	-- Identation lines
-	use {"lukas-reineke/indent-blankline.nvim",
-	config = function()
-		require('ibl').setup()
-		IBLEnable= true
-	end}
+    -- Comment.nvim: Easily comment and uncomment code
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup() -- Initialize Comment.nvim
+        end
+    }
+
+    -- Git tools and UI enhancements
+    use 'vim-airline/vim-airline' -- Statusline for Vim
+    use 'vim-airline/vim-airline-themes' -- Themes for vim-airline
+    use 'tpope/vim-fugitive' -- Git commands within Vim
+    use 'airblade/vim-gitgutter' -- Show git diff in the gutter
+
+    -- Indentation guides
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require('ibl').setup() -- Setup indentation lines
+        end
+    }
+
+    use 'airblade/vim-rooter'
+
+    use "nvimtools/none-ls.nvim"
 end)

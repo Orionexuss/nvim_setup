@@ -21,6 +21,16 @@ end
 lspconfig.pyright.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  cmd = { "/home/sebastian/.nvm/versions/node/v22.13.1/bin/pyright-langserver", "--stdio" },
+  settings = {
+    python = {
+      pythonPath = "/home/sebastian/venvs/pytest_env/bin/python3",
+      analysis = {
+		extraPaths = {"..", "./", ".git"},
+		diagnosticMode = "workspace"
+      }
+    },
+  },
 })
 
 -- TypeScript setup
