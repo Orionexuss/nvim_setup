@@ -87,5 +87,4 @@ return require('packer').startup(function(use)
 
     use 'airblade/vim-rooter'
 
-    use "nvimtools/none-ls.nvim"
 end)

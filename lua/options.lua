@@ -1,8 +1,7 @@
-
--- Configurar vim-rooter para cambiar automáticamente al directorio raíz del proyecto
+-- Set up vim-rooter to change automaticatly to the main directory of the proyect
 vim.g.rooter_patterns = { '.git/', 'Makefile', 'package.json' }
 
--- Evitar mensajes de cambio de directorio
+-- Avoid message when changing directories
 vim.g.rooter_silent_chdir = 1
 
 

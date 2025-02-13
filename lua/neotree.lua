@@ -10,7 +10,7 @@ require("neo-tree").setup({
     filesystem = {
         filtered_items = {
 	    visible = true,	
-            hide_dotfiles = false, -- Muestra archivos ocultos
+            hide_dotfiles = true, -- Muestra archivos ocultos
             hide_gitignored = false, -- Oculta archivos ignorados por Git
         },
         follow_current_file = { 

@@ -13,7 +13,7 @@ require('telescope').setup {
     vimgrep_arguments = {
       "rg",                        -- Use ripgrep for fast searching
       "--glob=!**/__pycache__/*",  -- Exclude all files inside __pycache__ directories
-      "--glob=!**/*.pyc"           -- Exclude all .pyc files
+      "--glob=!**/*.pyc",           -- Exclude all .pyc files
     },
 
     -- Define patterns for files/directories that should be ignored in search results
