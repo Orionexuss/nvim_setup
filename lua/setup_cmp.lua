@@ -1,28 +1,34 @@
+
+-- Import the 'cmp' module for completion
 local cmp = require('cmp')
 
--- Global setup.
+-- Global setup for 'cmp'
 cmp.setup({
   snippet = {
+    -- Function to expand snippets using 'luasnip'
     expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- Para usuarios de `luasnip`
+      require('luasnip').lsp_expand(args.body) -- For 'luasnip' users
     end,
   },
   window = {
+    -- Configure completion window with borders
     completion = cmp.config.window.bordered(),
+    -- Configure documentation window with borders
     documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
-    -- Desplazar docs
+    -- Scroll documentation up
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    -- Scroll documentation down
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     
-    -- Forzar menú de completado
+    -- Trigger completion menu
     ['<C-Space>'] = cmp.mapping.complete(),
     
-    -- Confirmar selección con Enter
+    -- Confirm selection with Enter
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
     
-    -- Navegar en la lista de sugerencias con Ctrl+j / Ctrl+k
+    -- Navigate suggestion list with Ctrl+j / Ctrl+k
     ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -42,13 +48,13 @@ cmp.setup({
 
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- Para usuarios de `luasnip`
+    { name = 'luasnip' }, -- For 'luasnip' users
   }, {
     { name = 'buffer' },
   }),
 })
 
--- Configuración para `/` en línea de comandos
+-- Setup for `/` in command line
 cmp.setup.cmdline('/', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
@@ -56,7 +62,7 @@ cmp.setup.cmdline('/', {
   }
 })
 
--- Configuración para `:` en línea de comandos
+-- Setup for `:` in command line
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
@@ -64,35 +70,38 @@ cmp.setup.cmdline(':', {
   }, {
     { name = 'cmdline' }
   }),
-  -- Opcional: permitir coincidencia parcial de símbolos
+  -- Optional: allow partial symbol matching
   matching = { disallow_symbol_nonprefix_matching = false }
 })
 
--- Setup de lspconfig
+-- Setup for lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-
+-- Configure TypeScript language server
 require('lspconfig').ts_ls.setup {
   capabilities = capabilities
 }
 
+-- Configure Lua language server
 require('lspconfig').lua_ls.setup {
   capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT', -- Usa la versión de runtime que Neovim utiliza
+        version = 'LuaJIT', -- Use the runtime version that Neovim uses
       },
       diagnostics = {
-        globals = { 'vim' }, -- Reconoce 'vim' como global para evitar errores
+        globals = { 'vim' }, -- Recognize 'vim' as global to avoid errors
       },
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true), -- Incluye runtime de Neovim
-        checkThirdParty = false, -- Desactiva la advertencia de dependencias externas
+        library = vim.api.nvim_get_runtime_file("", true), -- Include Neovim runtime
+        checkThirdParty = false, -- Disable third-party dependency warning
       },
       telemetry = {
-        enable = false, -- Desactiva la telemetría
+        enable = false, -- Disable telemetry
       },
     },
   },
 }
+      
+

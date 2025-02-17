@@ -52,17 +52,17 @@ lspconfig.lua_ls.setup({
   settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT',  -- Usa la versión de runtime de Neovim
+        version = 'LuaJIT',  
       },
       diagnostics = {
-        globals = { 'vim' }, -- Reconoce 'vim' como global para que no marque error
+        globals = { 'vim' }, 
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true),
-        checkThirdParty = false, -- Desactiva advertencias de dependencias externas
+        checkThirdParty = false, 
       },
       telemetry = {
-        enable = false, -- Desactiva la telemetría
+        enable = false, 
       },
     },
   },

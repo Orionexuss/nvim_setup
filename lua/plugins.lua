@@ -87,32 +87,34 @@ return require('packer').startup(function(use)
 
     use 'airblade/vim-rooter'
 
-	use({
-	    "kylechui/nvim-surround",
-	    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
-	    config = function()
-		require("nvim-surround").setup({
-		    -- Configuration here, or leave empty to use defaults
-		})
-	    end
-	})
+    use({
+        "kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
 
-       use  "github/copilot.vim" 
+    use "github/copilot.vim"
 
-	use 'godlygeek/tabular'
-	use 'preservim/vim-markdown'
-	-- install without yarn or npm
-	use({
-	    "iamcco/markdown-preview.nvim",
-	    run = function() vim.fn["mkdp#util#install"]() end,
-	})
+    use 'godlygeek/tabular'
+    use 'preservim/vim-markdown'
+    -- install without yarn or npm
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
 
-	use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
-	use({
-	  "olimorris/codecompanion.nvim",
-	  requires = {
-	    "nvim-lua/plenary.nvim",
-	    "nvim-treesitter/nvim-treesitter",
-	  }
-	})
+    use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+    use({
+        "olimorris/codecompanion.nvim",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        }
+    })
 end)
+      
+

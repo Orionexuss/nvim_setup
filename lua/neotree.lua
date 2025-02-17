@@ -1,32 +1,32 @@
 require("neo-tree").setup({
-    close_if_last_window = true, -- Cierra Neo-tree si es la última ventana abierta
-    popup_border_style = "rounded", -- Estilo de bordes
-    enable_git_status = true, -- Muestra el estado de Git
-    enable_diagnostics = true, -- Muestra problemas en el árbol
+    close_if_last_window = true, -- Closes Neo-tree if it is the last open window
+    popup_border_style = "rounded", -- Border style
+    enable_git_status = true, -- Shows Git status
+    enable_diagnostics = true, -- Shows issues in the tree
     cwd_target = {
-	    workspace = false,
-	    current = true,
-	},
+        workspace = false,
+        current = true,
+    },
     filesystem = {
         filtered_items = {
-	    visible = true,	
-            hide_dotfiles = true, -- Muestra archivos ocultos
-            hide_gitignored = false, -- Oculta archivos ignorados por Git
+            visible = true,	
+            hide_dotfiles = true, -- Shows hidden files
+            hide_gitignored = false, -- Hides files ignored by Git
         },
         follow_current_file = { 
-			enabled = true,
-			cleanup = true,
-		}, 
-	hijack_netrw_behavior = "open_current", -- Opcional: reemplaza netrw
-        use_libuv_file_watcher = true, -- Actualización automática del árbol
+            enabled = true,
+            cleanup = true,
+        }, 
+        hijack_netrw_behavior = "open_current", -- Optional: replaces netrw
+        use_libuv_file_watcher = true, -- Automatic tree update
     },
     window = {
-        position = "left", -- Posición del árbol
-        width = 30, -- Ancho del panel
+        position = "left", -- Tree position
+        width = 30, -- Panel width
         mappings = {
-            ["<space>"] = "toggle_node", -- Abrir/cerrar nodos con espacio
-            ["<cr>"] = "open", -- Abrir archivo o directorio
-            ["<esc>"] = "revert_preview", -- Cerrar previsualización
+            ["<space>"] = "toggle_node", -- Open/close nodes with space
+            ["<cr>"] = "open", -- Open file or directory
+            ["<esc>"] = "revert_preview", -- Close preview
         },
     },
     git_status = {
@@ -35,5 +35,4 @@ require("neo-tree").setup({
         },
     },
 })
-
 
