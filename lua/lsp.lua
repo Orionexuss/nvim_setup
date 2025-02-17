@@ -21,10 +21,14 @@ end
 lspconfig.pyright.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  handlers = {
+    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+  },
   cmd = { "/home/sebastian/.nvm/versions/node/v22.13.1/bin/pyright-langserver", "--stdio" },
   settings = {
     python = {
-      pythonPath = "/home/sebastian/venvs/pytest_env/bin/python3",
+      pythonPath = "/home/sebastian/venvs/sqlalchemy_env/bin/python3",
       analysis = {
 		extraPaths = {"..", "./", ".git"},
 		diagnosticMode = "workspace",
@@ -91,3 +95,4 @@ end, { silent = true })
 vim.keymap.set("n", "<C-u>", function()
   scroll_float(-4) -- Scroll up by 4 lines
 end, { silent = true })
+

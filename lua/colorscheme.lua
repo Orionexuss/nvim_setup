@@ -1,7 +1,7 @@
 
 require("cyberdream").setup({
     -- Main configuration
-    transparent = false, -- Enable/disable transparent background
+    transparent = true, -- Enable/disable transparent background
     italic_comments = false, -- Disable italic for comments
     hide_fillchars = false, -- Replace all fillchars with ' ' for a clean look
     borderless_picker = true, -- Modern theme without borders for Telescope and fzf-lua
@@ -34,7 +34,7 @@ require("cyberdream").setup({
             ["@property"] = { fg = colors.white, bold = false },
             ["@module"] = { fg = colors.white, bold = false },
             ["@string"] = { fg = colors.green, bold = false },
-            ["NeoTreeFileName"] = { fg = colors.grey, bold = false },
+            ["NeoTreeFileName"] = { fg = colors.blue, bold = false },
             ["Directory"] = { fg = colors.fg, bold = false },
             ["NeoTreeDirectoryIcon"] = { fg = colors.orange, bold = false },
             ["@variable"] = { fg = colors.white, bold = false },
@@ -46,6 +46,11 @@ require("cyberdream").setup({
             ["Type"] = { fg = colors.white, bold = false },
             ["Special"] = { fg = colors.blue, bold = false },
             ["PreProc"] = { fg = colors.blue, bold = false },
+	    ["Constant"] = { fg = colors.white, bold = false },
+	    ["Identifier"] = { fg = colors.green, bold = false },
+	    ["markdownBold"] = { fg = colors.green, bold = false },
+	    ["Bold"] = { fg = colors.green, bold = false },
+	    ["@text.strong"] = { fg = colors.green, bold = false },
         }
     end,
 
@@ -69,11 +74,38 @@ require("cyberdream").setup({
 
 -- Set background color
 Bg_color = "#0a0b0a"
-
 -- Apply the color scheme
-vim.cmd("colorscheme cyberdream")
 
 -- Set highlights for background
-vim.api.nvim_set_hl(0, "Normal", { bg = Bg_color })
-vim.api.nvim_set_hl(0, "NormalNC", { bg = Bg_color })
-vim.api.nvim_set_hl(0, "SignColumn", { bg = Bg_color })
+-- vim.api.nvim_set_hl(0, "Normal", { bg = Bg_color })
+-- vim.api.nvim_set_hl(0, "NormalNC", { bg = Bg_color })
+-- vim.api.nvim_set_hl(0, "SignColumn", { bg = Bg_color })
+
+vim.cmd("colorscheme cyberdream")
+
+vim.api.nvim_set_hl(0, "BoldGreen", { fg = "#00ff00", bold = false })
+
+
+local ns_id = vim.api.nvim_create_namespace("BoldHighlight")
+
+local function highlight_bold_text()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+    for i, line in ipairs(lines) do
+        local start = 1
+        while true do
+            local s, e = line:find("%*%*.-%*%*", start)
+            if not s then break end
+            vim.api.nvim_buf_add_highlight(bufnr, ns_id, "BoldGreen", i - 1, s - 1, e)
+            start = e + 1
+        end
+    end
+end
+
+vim.api.nvim_create_autocmd({ "BufEnter", "TextChanged", "TextChangedI" }, {
+    callback = function()
+        vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
+        highlight_bold_text()
+    end,
+})
+      

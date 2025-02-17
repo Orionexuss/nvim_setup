@@ -5,6 +5,12 @@ vim.g.rooter_patterns = { '.git/', 'Makefile', 'package.json' }
 vim.g.rooter_silent_chdir = 1
 
 
+vim.cmd('syntax on')
+vim.bo.filetype = 'markdown'
+
+-- Execute current .py file
+vim.api.nvim_set_keymap("n", "<F5>", ":w<CR>:!python3 %<CR>", { noremap = true, silent = true })
+
 vim.g.python3_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
 vim.g.python_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
 vim.cmd("set verbosefile=~/.local/state/nvim/log")
@@ -17,12 +23,20 @@ vim.g.maplocalleader = " "
 -- set to true if you have a nerd font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+
+for _, mode in ipairs({"n", "v"}) do
+  vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
+end
+
+
 -- make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
+vim.api.nvim_set_keymap("n", "<LeftMouse>", "<Nop>", { noremap = true, silent = true })
+
 
 -- don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -86,3 +100,10 @@ vim.api.nvim_create_autocmd("textyankpost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+
+vim.opt.foldmethod = "expr"    -- Use expression-based folding
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- Use Treesitter for better folding
+vim.opt.foldenable = true      -- Enable folding
+vim.opt.foldlevel = 99         -- Keep all folds open by default
+
