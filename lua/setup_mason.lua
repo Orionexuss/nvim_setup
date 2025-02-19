@@ -4,7 +4,19 @@ require("mason").setup({
     PATH = "append",
     log_level = vim.log.levels.INFO,
     max_concurrent_installers = 4,
-
+    ensure_installed = {
+        "tsserver",
+        "html",
+        "cssls",
+        "black",
+        "emmet-ls",
+        "eslint-lsp",
+        "flake8",
+        "html-lsp",
+        "isort",
+        "lua-language-server",
+        "prettier",
+    },
     ---@since 1.0.0
     -- [Advanced setting]
     -- The registries to source packages from. Accepts multiple entries. Should a package with the same name exist in

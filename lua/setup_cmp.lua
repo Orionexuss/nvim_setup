@@ -74,6 +74,7 @@ cmp.setup.cmdline(':', {
   matching = { disallow_symbol_nonprefix_matching = false }
 })
 
+
 -- Setup for lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -103,5 +104,28 @@ require('lspconfig').lua_ls.setup {
     },
   },
 }
+
       
+
+require('lspconfig').emmet_ls.setup({
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  filetypes = {
+    'html', 'css', 'javascriptreact', 'typescriptreact', 'vue', 'svelte', 'php', 'markdown'
+  },
+  init_options = {
+    html = {
+      options = {
+        -- Opciones extra de Emmet, si lo deseas
+      }
+    }
+  }
+})
+
+require('lspconfig').html.setup{
+  capabilities = capabilities,
+}
+
+require('lspconfig').cssls.setup{
+  capabilities = capabilities,
+}
 

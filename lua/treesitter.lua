@@ -2,6 +2,9 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = { "lua", "python", "javascript", "html", "css", "markdown", "markdown_inline" },
     sync_install = false,
     modules = {},
+    autotag = {
+	enable = true,
+    },
     ignore_install = {},
     auto_install = true,
     highlight = {

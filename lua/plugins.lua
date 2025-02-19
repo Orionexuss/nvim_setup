@@ -107,6 +107,8 @@ return require('packer').startup(function(use)
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
+    use 'nvimtools/none-ls.nvim' 
+
     use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
     use({
         "olimorris/codecompanion.nvim",
@@ -115,6 +117,7 @@ return require('packer').startup(function(use)
             "nvim-treesitter/nvim-treesitter",
         }
     })
+	use 'windwp/nvim-ts-autotag'
 end)
       
 
