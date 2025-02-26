@@ -25,7 +25,7 @@ lspconfig.pyright.setup({
     ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
   },
-  cmd = { "/home/sebastian/.nvm/versions/node/v22.13.1/bin/pyright-langserver", "--stdio" },
+  -- cmd = { "/home/sebastian/.nvm/versions/node/v22.13.1/bin/pyright-langserver", "--stdio" }, -- Once pyright is installed from npm, run '$ which pyright-langserver' to get the path
   settings = {
     python = {
       pythonPath = "/home/sebastian/venvs/sqlalchemy_env/bin/python3",

@@ -27,6 +27,7 @@ require("neo-tree").setup({
             ["<space>"] = "toggle_node", -- Open/close nodes with space
             ["<cr>"] = "open", -- Open file or directory
             ["<esc>"] = "revert_preview", -- Close preview
+	    ["f"] = nil,
         },
     },
     git_status = {
