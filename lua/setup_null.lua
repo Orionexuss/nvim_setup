@@ -9,5 +9,5 @@ null_ls.setup({
     },
 })
 
--- Crear un atajo para formatear manualmente
+-- Shortcut to format
 vim.api.nvim_set_keymap("n", "<leader>i", "<cmd>lua vim.lsp.buf.format()<CR>", { noremap = true, silent = true })
