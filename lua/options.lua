@@ -21,7 +21,7 @@ vim.g.VM_maps = {
 	["Add Cursor Down"] = "<C-j>",
 	["Add Cursor Up"] = "<C-k>",
 }
-
+vim.g.lazygit_floating_window_scaling_factor = 1
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -29,6 +29,7 @@ vim.g.maplocalleader = " "
 -- set to true if you have a nerd font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
+vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>LazyGit<CR>", {noremap = true, silent = true})
 
 for _, mode in ipairs({ "n", "v" }) do
 	vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })

@@ -103,12 +103,12 @@ return require('packer').startup(function(use)
 	-- install without yarn or npm
 
 	use({
-	  "iamcco/markdown-preview.nvim",
-	  run = function() vim.fn["mkdp#util#install"]() end,
-	  setup = function()
-	    vim.g.mkdp_filetypes = { "markdown" }
-	  end,
-	  ft = { "markdown" },
+		"iamcco/markdown-preview.nvim",
+		run = function() vim.fn["mkdp#util#install"]() end,
+		setup = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
 	})
 
 	use 'nvimtools/none-ls.nvim'
@@ -121,4 +121,12 @@ return require('packer').startup(function(use)
 	})
 	use 'windwp/nvim-ts-autotag'
 
+	-- nvim v0.7.2
+	use({
+		"kdheepak/lazygit.nvim",
+		-- optional for floating window border decoration
+		requires = {
+			"nvim-lua/plenary.nvim",
+		},
+	})
 end)
