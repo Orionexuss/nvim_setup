@@ -34,6 +34,7 @@ for _, mode in ipairs({ "n", "v" }) do
 	vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
 end
 
+vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
 
 -- make line numbers default
 vim.opt.number = true
