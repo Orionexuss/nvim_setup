@@ -17,6 +17,11 @@ vim.g.python_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
 vim.cmd("set verbosefile=~/.local/state/nvim/log")
 vim.cmd("set verbose=15")
 
+vim.g.VM_maps = {
+	["Add Cursor Down"] = "<C-j>",
+	["Add Cursor Up"] = "<C-k>",
+}
+
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -25,8 +30,8 @@ vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 
 
-for _, mode in ipairs({"n", "v"}) do
-  vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
+for _, mode in ipairs({ "n", "v" }) do
+	vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
 end
 
 
@@ -103,8 +108,7 @@ vim.api.nvim_create_autocmd("textyankpost", {
 })
 
 
-vim.opt.foldmethod = "expr"    -- Use expression-based folding
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"  -- Use Treesitter for better folding
-vim.opt.foldenable = true      -- Enable folding
-vim.opt.foldlevel = 99         -- Keep all folds open by default
-
+vim.opt.foldmethod = "expr"                     -- Use expression-based folding
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- Use Treesitter for better folding
+vim.opt.foldenable = true                       -- Enable folding
+vim.opt.foldlevel = 99                          -- Keep all folds open by default

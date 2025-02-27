@@ -7,7 +7,7 @@ return require('packer').startup(function(use)
 	-- Telescope: Fuzzy finder for files, buffers, etc.
 	use {
 		'nvim-telescope/telescope.nvim',
-		tag = '0.1.8',                   -- Use a specific tag for stability
+		tag = '0.1.8',               -- Use a specific tag for stability
 		requires = { { 'nvim-lua/plenary.nvim' } } -- Required dependency
 	}
 
@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
 	-- Neo-tree: File explorer with enhanced UI
 	use {
 		"nvim-neo-tree/neo-tree.nvim",
-		branch = "v3.x",           -- Use the latest stable version
+		branch = "v3.x",  -- Use the latest stable version
 		requires = {
 			"nvim-lua/plenary.nvim", -- Core Lua utilities
 			"nvim-tree/nvim-web-devicons", -- Icons for better visualization
@@ -46,7 +46,7 @@ return require('packer').startup(function(use)
 		requires = {
 			"hrsh7th/cmp-nvim-lsp", -- LSP completions
 			"hrsh7th/cmp-buffer", -- Buffer completions
-			"hrsh7th/cmp-path",   -- Path completions
+			"hrsh7th/cmp-path", -- Path completions
 			"hrsh7th/cmp-cmdline", -- Command-line completions
 			{
 				"L3MON4D3/LuaSnip", -- Snippet engine
@@ -71,10 +71,10 @@ return require('packer').startup(function(use)
 	}
 
 	-- Git tools and UI enhancements
-	use 'vim-airline/vim-airline'    -- Statusline for Vim
+	use 'vim-airline/vim-airline' -- Statusline for Vim
 	use 'vim-airline/vim-airline-themes' -- Themes for vim-airline
-	use 'tpope/vim-fugitive'         -- Git commands within Vim
-	use 'airblade/vim-gitgutter'     -- Show git diff in the gutter
+	use 'tpope/vim-fugitive'      -- Git commands within Vim
+	use 'airblade/vim-gitgutter'  -- Show git diff in the gutter
 
 	-- Indentation guides
 	use {
@@ -96,7 +96,7 @@ return require('packer').startup(function(use)
 		end
 	})
 
-	use "github/copilot.vim"
+	-- use "github/copilot.vim"
 
 	use 'godlygeek/tabular'
 	use 'preservim/vim-markdown'
@@ -108,8 +108,15 @@ return require('packer').startup(function(use)
 
 	use 'nvimtools/none-ls.nvim'
 
-	use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = {
-			"markdown" } end, ft = { "markdown" }, })
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = "cd app && npm install",
+		setup = function()
+			vim.g.mkdp_filetypes = {
+				"markdown" }
+		end,
+		ft = { "markdown" },
+	})
 	use({
 		"olimorris/codecompanion.nvim",
 		requires = {
@@ -118,4 +125,5 @@ return require('packer').startup(function(use)
 		}
 	})
 	use 'windwp/nvim-ts-autotag'
+
 end)
