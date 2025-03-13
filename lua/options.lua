@@ -18,8 +18,8 @@ vim.cmd("set verbosefile=~/.local/state/nvim/log")
 vim.cmd("set verbose=15")
 
 vim.g.VM_maps = {
-	["Add Cursor Down"] = "<C-j>",
-	["Add Cursor Up"] = "<C-k>",
+  ["Add Cursor Down"] = "<C-j>",
+  ["Add Cursor Up"] = "<C-k>",
 }
 vim.g.lazygit_floating_window_scaling_factor = 1
 
@@ -29,10 +29,10 @@ vim.g.maplocalleader = " "
 -- set to true if you have a nerd font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
-vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>LazyGit<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>LazyGit<CR>", { noremap = true, silent = true })
 
 for _, mode in ipairs({ "n", "v" }) do
-	vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
 end
 
 vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
@@ -54,11 +54,11 @@ vim.opt.showmode = false
 --  remove this option if you want your os clipboard to remain independent.
 --  see `:help 'clipboard'`
 vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
+  vim.opt.clipboard = "unnamedplus"
 end)
 
 -- enable break indent
-vim.opt.breakindent = true
+-- vim.opt.breakindent = true
 
 -- save undo history
 vim.opt.undofile = true
@@ -102,11 +102,11 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "open diagn
 --  try it with `yap` in normal mode
 --  see `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("textyankpost", {
-	desc = "highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.highlight.on_yank()
-	end,
+  desc = "highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 
@@ -114,3 +114,8 @@ vim.opt.foldmethod = "expr"                     -- Use expression-based folding
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- Use Treesitter for better folding
 vim.opt.foldenable = true                       -- Enable folding
 vim.opt.foldlevel = 99                          -- Keep all folds open by default
+
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true

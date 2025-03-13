@@ -30,11 +30,11 @@ lspconfig.pyright.setup({
     python = {
       pythonPath = "/home/sebastian/venvs/sqlalchemy_env/bin/python3",
       analysis = {
-		extraPaths = {"..", "./", ".git"},
-		diagnosticMode = "workspace",
-		diagnosticSeverityOverrides = {
-                    reportIncompatibleMethodOverride = "none" -- Avoid static analysis
-		}
+        extraPaths = { "..", "./", ".git" },
+        diagnosticMode = "workspace",
+        diagnosticSeverityOverrides = {
+          reportIncompatibleMethodOverride = "none"           -- Avoid static analysis
+        }
       }
     },
   },
@@ -52,17 +52,17 @@ lspconfig.lua_ls.setup({
   settings = {
     Lua = {
       runtime = {
-        version = 'LuaJIT',  
+        version = 'LuaJIT',
       },
       diagnostics = {
-        globals = { 'vim' }, 
+        globals = { 'vim' },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true),
-        checkThirdParty = false, 
+        checkThirdParty = false,
       },
       telemetry = {
-        enable = false, 
+        enable = false,
       },
     },
   },
@@ -71,15 +71,15 @@ lspconfig.lua_ls.setup({
 -- Function to scroll within a floating window
 local function scroll_float(amount)
   local win = vim.api.nvim_get_current_win() -- Get the current active window
-  local wins = vim.api.nvim_list_wins() -- Get a list of all windows in Neovim
+  local wins = vim.api.nvim_list_wins()      -- Get a list of all windows in Neovim
 
   for _, w in ipairs(wins) do
     local config = vim.api.nvim_win_get_config(w) -- Get the configuration of each window
-    if config.relative ~= "" then -- Check if the window is a floating window
+    if config.relative ~= "" then                 -- Check if the window is a floating window
       vim.api.nvim_win_call(w, function()
         -- Perform normal mode command to scroll
         -- "" (CTRL+e) scrolls down, "" (CTRL+y) scrolls up
-        vim.cmd("normal! " .. amount .. "") 
+        vim.cmd("normal! " .. amount .. "")
       end)
       return -- Exit after scrolling the first floating window found
     end
@@ -95,4 +95,3 @@ end, { silent = true })
 vim.keymap.set("n", "<C-u>", function()
   scroll_float(-4) -- Scroll up by 4 lines
 end, { silent = true })
-
