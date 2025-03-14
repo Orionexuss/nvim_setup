@@ -1,4 +1,3 @@
-
 -- Import the 'cmp' module for completion
 local cmp = require('cmp')
 
@@ -21,13 +20,13 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     -- Scroll documentation down
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    
+
     -- Trigger completion menu
     ['<C-Space>'] = cmp.mapping.complete(),
-    
+
     -- Confirm selection with Enter
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    
+
     -- Navigate suggestion list with Ctrl+j / Ctrl+k
     ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
@@ -96,7 +95,7 @@ require('lspconfig').lua_ls.setup {
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file("", true), -- Include Neovim runtime
-        checkThirdParty = false, -- Disable third-party dependency warning
+        checkThirdParty = false,                           -- Disable third-party dependency warning
       },
       telemetry = {
         enable = false, -- Disable telemetry
@@ -105,27 +104,26 @@ require('lspconfig').lua_ls.setup {
   },
 }
 
-      
 
-require('lspconfig').emmet_ls.setup({
-  capabilities = require('cmp_nvim_lsp').default_capabilities(),
-  filetypes = {
-    'html', 'css', 'javascriptreact', 'typescriptreact', 'vue', 'svelte', 'php', 'markdown'
+
+require("lspconfig").emmet_ls.setup({
+  cmd = {
+    vim.fn.stdpath("data") .. "/mason/bin/emmet-ls",
+    "--stdio"
   },
+  filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue", "svelte", "php", "markdown" },
   init_options = {
     html = {
-      options = {
-        -- Opciones extra de Emmet, si lo deseas
-      }
+      options = {}
     }
-  }
+  },
+  capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
 
-require('lspconfig').html.setup{
+require('lspconfig').html.setup {
   capabilities = capabilities,
 }
 
-require('lspconfig').cssls.setup{
+require('lspconfig').cssls.setup {
   capabilities = capabilities,
 }
-

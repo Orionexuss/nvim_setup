@@ -1,163 +1,172 @@
-vim.cmd [[packadd packer.nvim]] -- Ensure packer.nvim is loaded
+return require("lazy").setup({
 
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-
-  -- Telescope: Fuzzy finder for files, buffers, etc.
-  use {
+  -- Telescope plugin
+  {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.8',                             -- Use a specific tag for stability
-    requires = { { 'nvim-lua/plenary.nvim' } } -- Required dependency
-  }
+    tag = '0.1.8',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
 
-  -- Treesitter: Syntax highlighting, code navigation, and more
-  use {
+  -- Treesitter plugin
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update() -- Ensure parsers are up-to-date
+      ts_update()
     end,
-  }
+  },
 
-  -- Visual Multi: Support for multiple cursors
-  use "mg979/vim-visual-multi"
+  -- Visual Multi plugin
+  { "mg979/vim-visual-multi" },
 
-  -- Cyberdream Theme: Aesthetic colorscheme
-  use { "scottmckendry/cyberdream.nvim" }
+  -- Cyberdream Theme plugin
+  { "scottmckendry/cyberdream.nvim" },
 
-  -- Neo-tree: File explorer with enhanced UI
-  use {
+  -- Neo-tree plugin
+  {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",                 -- Use the latest stable version
-    requires = {
-      "nvim-lua/plenary.nvim",       -- Core Lua utilities
-      "nvim-tree/nvim-web-devicons", -- Icons for better visualization
-      "MunifTanjim/nui.nvim",        -- UI components library
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
     }
-  }
+  },
 
-  -- Mason: Manage LSP servers, linters, and formatters
-  use { "williamboman/mason.nvim" }
+  -- Mason plugin
+  { "williamboman/mason.nvim" },
 
-  -- nvim-cmp: Autocompletion plugin
-  use {
+  -- nvim-cmp and Snippets plugin for autocompletion
+  {
     "hrsh7th/nvim-cmp",
-    requires = {
-      "hrsh7th/cmp-nvim-lsp",         -- LSP completions
-      "hrsh7th/cmp-buffer",           -- Buffer completions
-      "hrsh7th/cmp-path",             -- Path completions
-      "hrsh7th/cmp-cmdline",          -- Command-line completions
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
       {
-        "L3MON4D3/LuaSnip",           -- Snippet engine
-        run = "make install_jsregexp" -- Ensure regex support is installed
+        "L3MON4D3/LuaSnip",
+        build = "make install_jsregexp"
       },
-      "saadparwaiz1/cmp_luasnip"      -- Integration of LuaSnip with nvim-cmp
+      "saadparwaiz1/cmp_luasnip"
     },
     config = function()
-      require("setup_cmp") -- Load custom nvim-cmp configuration
+      require("setup_cmp")
     end
-  }
+  },
 
-  -- LSP Config: Base configuration for LSP servers
-  use "neovim/nvim-lspconfig"
+  -- LSP Config plugin
+  { "neovim/nvim-lspconfig" },
 
-  -- Comment.nvim: Easily comment and uncomment code
-  use {
+  -- Comment.nvim plugin
+  {
     'numToStr/Comment.nvim',
     config = function()
-      require('Comment').setup() -- Initialize Comment.nvim
+      require('Comment').setup()
     end
-  }
+  },
 
-  -- Git tools and UI enhancements
-  -- use 'vim-airline/vim-airline' -- Statusline for Vim
-  -- use 'vim-airline/vim-airline-themes' -- Themes for vim-airline
-  use 'tpope/vim-fugitive'     -- Git commands within Vim
-  use 'airblade/vim-gitgutter' -- Show git diff in the gutter
+  -- Git plugins
+  { 'tpope/vim-fugitive' },
+  { 'airblade/vim-gitgutter' },
 
-  -- Indentation guides
-  use {
+  -- Indent Blankline plugin
+  {
     "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require('ibl').setup() -- Setup indentation lines
-    end
-  }
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+  },
 
-  use 'airblade/vim-rooter'
+  -- vim-rooter plugin
+  { 'airblade/vim-rooter' },
 
-  use({
+  -- nvim-surround plugin
+  {
     "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    version = "*",
     config = function()
-      require("nvim-surround").setup({
-        -- Configuration here, or leave empty to use defaults
-      })
+      require("nvim-surround").setup({})
     end
-  })
+  },
 
-  -- use "github/copilot.vim"
+  -- Tabular and vim-markdown plugins
+  { 'godlygeek/tabular' },
+  { 'preservim/vim-markdown' },
 
-  use 'godlygeek/tabular'
-  use 'preservim/vim-markdown'
-  -- install without yarn or npm
-
-  use({
+  -- markdown-preview plugin
+  {
     "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-    setup = function()
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+    init = function()
       vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = { "markdown" },
-  })
+  },
 
-  use 'nvimtools/none-ls.nvim'
-  use({
+  -- none-ls plugin
+  { 'nvimtools/none-ls.nvim' },
+
+  -- codecompanion plugin
+  {
     "olimorris/codecompanion.nvim",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     }
-  })
-  use 'windwp/nvim-ts-autotag'
+  },
+  { 'windwp/nvim-ts-autotag' },
 
-  -- nvim v0.7.2
-  use({
+  -- LazyGit plugin
+  {
     "kdheepak/lazygit.nvim",
-    -- optional for floating window border decoration
-    requires = {
-      "nvim-lua/plenary.nvim",
-    },
-  })
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      vim.g.lazygit_floating_window_winblend = 0
+      vim.env.LAZYGIT_USE_CUSTOM_CONFIG_FILE_PATH = "1"
+      vim.env.LAZYGIT_CONFIG_FILE = vim.fn.expand("~/.config/lazygit/config.yml")
+    end
+  },
 
-  use {
+  -- nvim-autopairs plugin
+  {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = function()
       require("nvim-autopairs").setup {}
     end
-  }
+  },
 
-  use {
+  -- solarized-osaka plugin
+  {
     "craftzdog/solarized-osaka.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  }
+    config = function()
+      require("solarized-osaka").setup({
+        on_highlights = function(highlights)
+          highlights["@module.python"] = { fg = "#849900" }
+          highlights["@keyword.import.python"] = { fg = "#c94c16" }
+        end,
+      })
+      vim.cmd("colorscheme solarized-osaka")
+    end
+  },
 
-  use {
+  -- lualine plugin for status line
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup({
         options = { theme = 'material' }
-
       })
     end
-  }
+  },
 
-
-  use {
+  -- mini.indentscope plugin
+  {
     "echasnovski/mini.indentscope",
     config = function()
       require("mini.indentscope").setup({
@@ -165,5 +174,12 @@ return require('packer').startup(function(use)
         symbol = "│"
       })
     end
-  }
-end)
+  },
+
+  -- Treesitter Playground plugin
+  {
+    "nvim-treesitter/playground",
+    cmd = "TSHighlightCapturesUnderCursor"
+  },
+})
+

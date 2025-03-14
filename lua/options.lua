@@ -14,8 +14,6 @@ vim.api.nvim_set_keymap("n", "<F5>", ":w<CR>:!python3 %<CR>", { noremap = true, 
 
 vim.g.python3_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
 vim.g.python_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
-vim.cmd("set verbosefile=~/.local/state/nvim/log")
-vim.cmd("set verbose=15")
 
 vim.g.VM_maps = {
   ["Add Cursor Down"] = "<C-j>",
@@ -109,6 +107,7 @@ vim.api.nvim_create_autocmd("textyankpost", {
   end,
 })
 
+vim.opt.termguicolors = true
 
 vim.opt.foldmethod = "expr"                     -- Use expression-based folding
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()" -- Use Treesitter for better folding

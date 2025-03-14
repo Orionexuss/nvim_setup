@@ -10,6 +10,7 @@ require("mason").setup({
         "cssls",
         "black",
         "emmet-ls",
+        "pyright",
         "eslint-lsp",
         "flake8",
         "html-lsp",
