@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("plugins")
-
+require("setup_dashboard")
 require("options")
 require("colorscheme")
 require("lsp")

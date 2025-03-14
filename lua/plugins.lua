@@ -76,9 +76,14 @@ return require("lazy").setup({
     main = "ibl",
     ---@module "ibl"
     ---@type ibl.config
-    opts = {},
+    opts = {
+      exclude = {
+        filetypes = {
+          "dashboard",
+        },
+      },
+    },
   },
-
   -- vim-rooter plugin
   { 'airblade/vim-rooter' },
 
@@ -181,5 +186,9 @@ return require("lazy").setup({
     "nvim-treesitter/playground",
     cmd = "TSHighlightCapturesUnderCursor"
   },
-})
 
+  {
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
+  },
+})
