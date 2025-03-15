@@ -187,8 +187,20 @@ return require("lazy").setup({
     cmd = "TSHighlightCapturesUnderCursor"
   },
 
+  -- Dashboard
   {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
   },
+
+  -- Python venvs
+  {
+    "AckslD/swenv.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("setup_swenv").setup()
+    end
+  },
+
+  { 'folke/snacks.nvim' },
 })

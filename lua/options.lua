@@ -4,13 +4,13 @@ vim.g.rooter_patterns = { '.git/', 'Makefile', 'package.json' }
 -- Avoid message when changing directories
 vim.g.rooter_silent_chdir = 1
 
-vim.api.nvim_set_keymap("i", "<C-BS>", "<C-w>", { noremap = true, silent = true })
+vim.keymap.set("i", "<C-BS>", "<C-w>", { noremap = true, silent = true })
 
 vim.cmd('syntax on')
 vim.bo.filetype = 'markdown'
 
 -- Execute current .py file
-vim.api.nvim_set_keymap("n", "<F5>", ":w<CR>:!python3 %<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<F5>", ":w<CR>:!python3 %<CR>", { noremap = true, silent = true })
 
 vim.g.python3_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
 vim.g.python_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
@@ -24,16 +24,18 @@ vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.keymap.set("n", "<leader>ve", ":PickVenv<CR>", { noremap = false, silent = true})
+
 -- set to true if you have a nerd font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
-vim.api.nvim_set_keymap("n", "<leader>gg", "<cmd>LazyGit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>", { noremap = true, silent = true })
 
 for _, mode in ipairs({ "n", "v" }) do
-  vim.api.nvim_set_keymap(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
+  vim.keymap.set(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
 end
 
-vim.api.nvim_set_keymap('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>d', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
 
 -- make line numbers default
 vim.opt.number = true
@@ -41,7 +43,7 @@ vim.opt.relativenumber = true
 
 -- enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = "a"
-vim.api.nvim_set_keymap("n", "<LeftMouse>", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("n", "<LeftMouse>", "<Nop>", { noremap = true, silent = true })
 
 
 -- don't show the mode, since it's already in the status line

@@ -28,7 +28,7 @@ lspconfig.pyright.setup({
   -- cmd = { "/home/sebastian/.nvm/versions/node/v22.13.1/bin/pyright-langserver", "--stdio" }, -- Once pyright is installed from npm, run '$ which pyright-langserver' to get the path
   settings = {
     python = {
-      pythonPath = "/home/sebastian/venvs/sqlalchemy_env/bin/python3",
+      -- pythonPath = "/home/sebastian/venvs/luxi_env/bin/python3",
       analysis = {
         extraPaths = { "..", "./", ".git" },
         diagnosticMode = "workspace",
