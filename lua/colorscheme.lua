@@ -1,15 +1,15 @@
 require("cyberdream").setup({
   -- Main configuration
-  transparent = true,      -- Enable/disable transparent background
-  italic_comments = false, -- Disable italic for comments
-  hide_fillchars = false,  -- Replace all fillchars with ' ' for a clean look
+  transparent = true,       -- Enable/disable transparent background
+  italic_comments = false,  -- Disable italic for comments
+  hide_fillchars = false,   -- Replace all fillchars with ' ' for a clean look
   borderless_picker = true, -- Modern theme without borders for Telescope and fzf-lua
-  terminal_colors = true,  -- Enable terminal colors
-  cache = false,           -- Disable highlight caching
+  terminal_colors = true,   -- Enable terminal colors
+  cache = false,            -- Disable highlight caching
 
   -- Color scheme configuration (previously under `theme`)
   variant = "default", -- Change to "light" or "auto"
-  saturation = 1,     -- Value between 0 and 1
+  saturation = 1,      -- Value between 0 and 1
   highlights = {
     -- Custom highlight groups
     Comment = { fg = "#696969", bg = "NONE", italic = true },
@@ -66,8 +66,8 @@ require("cyberdream").setup({
   -- Extensions
   extensions = {
     telescope = true, -- Enable support for Telescope
-    notify = true,  -- Enable support for notifications
-    mini = true,    -- Enable support for mini plugins
+    notify = true,    -- Enable support for notifications
+    mini = true,      -- Enable support for mini plugins
   },
 })
 
@@ -106,4 +106,47 @@ vim.api.nvim_create_autocmd({ "BufEnter", "TextChanged", "TextChangedI" }, {
     vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
     highlight_bold_text()
   end,
+})
+
+
+require('tokyonight').setup({
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  style = "storm",        -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+  transparent = true,     -- Enable this to disable setting the background color
+  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+  styles = {
+    -- Style to be applied to different syntax groups
+    -- Value is any valid attr-list value for `:help nvim_set_hl`
+    comments = { italic = false },
+    keywords = { italic = false },
+    -- Background styles. Can be "dark", "transparent" or "normal"
+    sidebars = "dark", -- style for sidebars, see below
+    floats = "dark",   -- style for floating windows
+  },
+})
+
+require('gruvbox').setup({
+  terminal_colors = true, -- add neovim terminal colors
+  undercurl = true,
+  underline = false,
+  bold = true,
+  italic = {
+    strings = false,
+    emphasis = false,
+    comments = false,
+    operators = false,
+    folds = false,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true,               -- invert background for search, diffs, statuslines and errors
+  contrast = "",                -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = false,
+  transparent_mode = true,
 })

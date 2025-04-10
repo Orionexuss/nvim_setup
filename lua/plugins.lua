@@ -203,4 +203,27 @@ return require("lazy").setup({
   },
 
   { 'folke/snacks.nvim' },
+
+  -- rose-pine theme
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require('rose-pine').setup({
+        disable_background = true,
+        styles = {
+          italic = false,
+        },
+      })
+    end
+  },
+
+  { 'folke/tokyonight.nvim' },
+
+  { 'github/copilot.vim' },
+
+  {
+    'ellisonleao/gruvbox.nvim',
+    name = 'gruvbox'
+  }
 })
