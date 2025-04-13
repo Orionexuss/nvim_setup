@@ -69,6 +69,8 @@ return require("lazy").setup({
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
+     "mlaursen/vim-react-snippets",
+      "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
@@ -83,6 +85,9 @@ return require("lazy").setup({
       opts.formatting = {
         format = require("tailwindcss-colorizer-cmp").formatter,
       }
+       require("vim-react-snippets").lazy_load()
+     local config = require("vim-react-snippets.config")
+     config.readonly_props = false
     end,
     config = function()
       require("setup_cmp")
@@ -269,5 +274,5 @@ return require("lazy").setup({
         tailwind = true,
       },
     }
-  }
+  },
 })
