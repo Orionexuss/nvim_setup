@@ -34,7 +34,34 @@ return require("lazy").setup({
   },
 
   -- Mason plugin
-  { "williamboman/mason.nvim" },
+  {
+    "williamboman/mason.nvim",
+    config = function()
+      require("mason").setup({
+        ensure_installed = {
+          "stylua",
+          "selene",
+          "luacheck",
+          "shellcheck",
+          "shfmt",
+          "tailwindcss-language-server",
+          "typescript-language-server",
+          "css-lsp",
+          "tsserver",
+          "html",
+          "cssls",
+          "black",
+          "emmet-ls",
+          "pyright",
+          "eslint-lsp",
+          "flake8",
+          "isort",
+          "lua-language-server",
+          "prettier",
+        }
+      })
+    end
+  },
 
   -- nvim-cmp and Snippets plugin for autocompletion
   {
@@ -44,12 +71,19 @@ return require("lazy").setup({
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+
       {
         "L3MON4D3/LuaSnip",
         build = "make install_jsregexp"
       },
       "saadparwaiz1/cmp_luasnip"
     },
+    opts = function(_, opts)
+      opts.formatting = {
+        format = require("tailwindcss-colorizer-cmp").formatter,
+      }
+    end,
     config = function()
       require("setup_cmp")
     end
@@ -155,7 +189,6 @@ return require("lazy").setup({
           highlights["@keyword.import.python"] = { fg = "#c94c16" }
         end,
       })
-      vim.cmd("colorscheme solarized-osaka")
     end
   },
 
@@ -225,5 +258,16 @@ return require("lazy").setup({
   {
     'ellisonleao/gruvbox.nvim',
     name = 'gruvbox'
+  },
+
+  { 'theprimeagen/harpoon' },
+
+  {
+    "NvChad/nvim-colorizer.lua",
+    opts = {
+      user_default_options = {
+        tailwind = true,
+      },
+    }
   }
 })

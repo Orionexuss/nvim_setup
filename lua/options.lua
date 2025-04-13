@@ -4,6 +4,7 @@ vim.g.rooter_patterns = { '.git/', 'Makefile', 'package.json' }
 -- Avoid message when changing directories
 vim.g.rooter_silent_chdir = 1
 
+
 vim.keymap.set("i", "<C-BS>", "<C-w>", { noremap = true, silent = true })
 
 vim.cmd('syntax on')
@@ -24,7 +25,27 @@ vim.g.lazygit_floating_window_scaling_factor = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.keymap.set("n", "<leader>ve", ":PickVenv<CR>", { noremap = false, silent = true})
+-- Harpoon keymaps
+vim.keymap.set("n", "<leader>hs", ":Telescope harpoon marks<CR>",
+  { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<Leader>hx", "<Cmd>lua require('harpoon.mark').add_file()<CR>",
+  { noremap = true, silent = true, expr = false })
+
+vim.api.nvim_set_keymap("n", "<Leader>hq", "<Cmd>lua require('harpoon.ui').nav_file(1)<CR>",
+  { noremap = true, silent = true, expr = false })
+
+vim.api.nvim_set_keymap("n", "<Leader>hw", "<Cmd>lua require('harpoon.ui').nav_file(2)<CR>",
+  { noremap = true, silent = true, expr = false })
+
+vim.api.nvim_set_keymap("n", "<Leader>he", "<Cmd>lua require('harpoon.ui').nav_file(3)<CR>",
+  { noremap = true, silent = true, expr = false })
+
+vim.api.nvim_set_keymap("n", "<Leader>hr", "<Cmd>lua require('harpoon.ui').nav_file(4)<CR>",
+  { noremap = true, silent = true, expr = false })
+
+vim.keymap.set("n", "<leader>ve", ":PickVenv<CR>", { noremap = false, silent = true })
+
 
 -- set to true if you have a nerd font installed and selected in the terminal
 vim.g.have_nerd_font = true

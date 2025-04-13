@@ -1,10 +1,3 @@
--- Try to load Telescope safely
-local status, telescope = pcall(require, "telescope")
-if not status then
-  print("Error loading Telescope: " .. tostring(telescope)) -- Print an error if Telescope fails to load
-  return
-end
---
 require('telescope').setup({
   defaults = {
     vimgrep_arguments = {
@@ -27,3 +20,5 @@ require('telescope').setup({
     },
   }
 })
+
+require('telescope').load_extension('harpoon')

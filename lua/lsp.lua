@@ -17,6 +17,7 @@ local on_attach = function(client, bufnr)
   -- e.g. vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr })
 end
 
+
 -- Pyright setup
 lspconfig.pyright.setup({
   on_attach = on_attach,
@@ -25,17 +26,16 @@ lspconfig.pyright.setup({
     ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
     ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
   },
-  -- cmd = { "/home/sebastian/.nvm/versions/node/v22.13.1/bin/pyright-langserver", "--stdio" }, -- Once pyright is installed from npm, run '$ which pyright-langserver' to get the path
   settings = {
     python = {
-      -- pythonPath = "/home/sebastian/venvs/luxi_env/bin/python3",
+      pythonPath = "~/hello-world-app/backend/.venv/bin/python",
       analysis = {
         extraPaths = { "..", "./", ".git" },
         diagnosticMode = "workspace",
         diagnosticSeverityOverrides = {
-          reportIncompatibleMethodOverride = "none"           -- Avoid static analysis
-        }
-      }
+          reportIncompatibleMethodOverride = "none",
+        },
+      },
     },
   },
 })
@@ -44,11 +44,41 @@ lspconfig.pyright.setup({
 lspconfig.ts_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  root_dir = function(...)
+    return require("lspconfig.util").root_pattern(".git")(...)
+  end,
+  single_file_support = false,
+  settings = {
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "literal",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+  },
 })
 
+-- Lua setup
 lspconfig.lua_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
+  single_file_support = true,
   settings = {
     Lua = {
       runtime = {
@@ -56,21 +86,102 @@ lspconfig.lua_ls.setup({
       },
       diagnostics = {
         globals = { 'vim' },
+        disable = { "incomplete-signature-doc", "trailing-space" },
+        groupSeverity = {
+          strong = "Warning",
+          strict = "Warning",
+        },
+        groupFileStatus = {
+          ["ambiguity"] = "Opened",
+          ["await"] = "Opened",
+          ["codestyle"] = "None",
+          ["duplicate"] = "Opened",
+          ["global"] = "Opened",
+          ["luadoc"] = "Opened",
+          ["redefined"] = "Opened",
+          ["strict"] = "Opened",
+          ["strong"] = "Opened",
+          ["type-check"] = "Opened",
+          ["unbalanced"] = "Opened",
+          ["unused"] = "Opened",
+        },
+        unusedLocalExclude = { "_*" },
       },
       workspace = {
         library = vim.api.nvim_get_runtime_file('', true),
         checkThirdParty = false,
       },
+      completion = {
+        workspaceWord = true,
+        callSnippet = "Both",
+      },
+      misc = {
+        parameters = {},
+      },
+      hint = {
+        enable = true,
+        setType = false,
+        paramType = true,
+        paramName = "Disable",
+        semicolon = "Disable",
+        arrayIndex = "Disable",
+      },
+      doc = {
+        privateName = { "^_" },
+      },
+      type = {
+        castNumberToInteger = true,
+      },
       telemetry = {
         enable = false,
+      },
+      format = {
+        enable = false,
+        defaultConfig = {
+          indent_style = "space",
+          indent_size = "2",
+          continuation_indent_size = "2",
+        },
       },
     },
   },
 })
 
+-- CSS setup
+lspconfig.cssls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+-- TailwindCSS setup
+lspconfig.tailwindcss.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  root_dir = function(...)
+    return require("lspconfig.util").root_pattern(".git")(...)
+  end,
+})
+
+-- HTML setup
+lspconfig.html.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+-- YAML setup
+lspconfig.yamlls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    yaml = {
+      keyOrdering = false,
+    },
+  },
+})
+
+
 -- Function to scroll within a floating window
-local function scroll_float(amount)
-  local win = vim.api.nvim_get_current_win() -- Get the current active window
+local function scroll_float(amount) local win = vim.api.nvim_get_current_win() -- Get the current active window
   local wins = vim.api.nvim_list_wins()      -- Get a list of all windows in Neovim
 
   for _, w in ipairs(wins) do
