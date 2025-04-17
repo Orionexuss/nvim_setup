@@ -136,6 +136,10 @@ return require("lazy").setup({
   },
 
   -- Tabular and vim-markdown plugins
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    ft = { "markdown", "codecompanion" }
+  },
   { 'godlygeek/tabular' },
   { 'preservim/vim-markdown' },
 
