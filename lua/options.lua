@@ -22,6 +22,15 @@ vim.g.VM_maps = {
 }
 vim.g.lazygit_floating_window_scaling_factor = 1
 
+
+-- Configures the LSP hover handler to display hover windows with a rounded border.
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {
+    border = "rounded"
+  }
+)
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
