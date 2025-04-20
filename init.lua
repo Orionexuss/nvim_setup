@@ -22,10 +22,3 @@ require("treesitter")
 require("neotree")
 require("setup_codecompanion")
 require("setup_null")
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = "rounded"
-  }
-)
