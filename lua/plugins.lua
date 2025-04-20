@@ -1,4 +1,6 @@
 return require("lazy").setup({
+  -- Avante plugin
+  {import = 'avante_setup'},
 
   -- Telescope plugin
   {
