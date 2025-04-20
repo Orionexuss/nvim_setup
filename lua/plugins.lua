@@ -249,8 +249,10 @@ return require("lazy").setup({
     "AckslD/swenv.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("setup_swenv").setup()
-    end
+      vim.keymap.set("n", "<leader>ve", function()
+        require("swenv.api").pick_venv()
+      end, { desc = "Pick and set Python venv" })
+    end,
   },
 
   { 'folke/snacks.nvim' },
@@ -271,8 +273,7 @@ return require("lazy").setup({
 
   { 'folke/tokyonight.nvim' },
 
-  { 'github/copilot.vim' },
-
+  --[[ { 'github/copilot.vim' },
   { 
     "zbirenbaum/copilot.lua",
     		opts = {
@@ -293,7 +294,7 @@ return require("lazy").setup({
         terminal = true,
 			},
 		},
-  },
+  }, ]]
 
   {
     'ellisonleao/gruvbox.nvim',

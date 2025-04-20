@@ -28,7 +28,7 @@ lspconfig.pyright.setup({
   },
   settings = {
     python = {
-      pythonPath = "~/hello-world-app/backend/.venv/bin/python",
+      -- pythonPath = "~/hello-world-app/backend/.venv/bin/python",
       analysis = {
         extraPaths = { "..", "./", ".git" },
         diagnosticMode = "workspace",

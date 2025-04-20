@@ -29,6 +29,7 @@ local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 vim.lsp.util.open_floating_preview = function(contents, syntax, opts, ...)
   opts = opts or {}
   opts.border = opts.border or "rounded"
+  opts.max_width= opts.max_width or 80
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end
 
@@ -60,8 +61,6 @@ vim.api.nvim_set_keymap("n", "<Leader>he", "<Cmd>lua require('harpoon.ui').nav_f
 
 vim.api.nvim_set_keymap("n", "<Leader>hr", "<Cmd>lua require('harpoon.ui').nav_file(4)<CR>",
   { noremap = true, silent = true, expr = false })
-
-vim.keymap.set("n", "<leader>ve", ":PickVenv<CR>", { noremap = false, silent = true })
 
 
 -- set to true if you have a nerd font installed and selected in the terminal
