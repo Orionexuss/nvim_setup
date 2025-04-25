@@ -1,4 +1,5 @@
 local lga_actions = require("telescope-live-grep-args.actions")
+local make_entry = require("telescope.make_entry")
 
 require('telescope').setup({
   extensions = {
@@ -41,3 +42,18 @@ vim.keymap.set('n', 'gd', function() require('telescope.builtin').lsp_definition
 vim.keymap.set('n', 'gD', function() require('telescope.builtin').lsp_declarations() end, { noremap = true, silent = true })
 vim.keymap.set('n', 'gi', function() require('telescope.builtin').lsp_implementations() end, { noremap = true, silent = true })
 vim.keymap.set('n', 'gr', function() require('telescope.builtin').lsp_references() end, { noremap = true, silent = true })
+
+
+local original_gen_from_file = make_entry.gen_from_file
+
+make_entry.gen_from_file = function(opts)
+  local original_maker = original_gen_from_file(opts)
+
+  return function(line)
+    local entry = original_maker(line)
+    if entry and entry.path then
+      entry.path = entry.path:gsub("\\", "/")
+    end
+    return entry
+  end
+end
