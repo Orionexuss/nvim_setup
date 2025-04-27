@@ -85,30 +85,6 @@ Bg_color = "#0a0b0a"
 vim.api.nvim_set_hl(0, "BoldGreen", { fg = "#00ff00", bold = false })
 
 
-local ns_id = vim.api.nvim_create_namespace("BoldHighlight")
-
-local function highlight_bold_text()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  for i, line in ipairs(lines) do
-    local start = 1
-    while true do
-      local s, e = line:find("%*%*.-%*%*", start)
-      if not s then break end
-      vim.api.nvim_buf_add_highlight(bufnr, ns_id, "BoldGreen", i - 1, s - 1, e)
-      start = e + 1
-    end
-  end
-end
-
-vim.api.nvim_create_autocmd({ "BufEnter", "TextChanged", "TextChangedI" }, {
-  callback = function()
-    vim.api.nvim_buf_clear_namespace(0, ns_id, 0, -1)
-    highlight_bold_text()
-  end,
-})
-
-
 require('tokyonight').setup({
   -- your configuration comes here
   -- or leave it empty to use the default settings

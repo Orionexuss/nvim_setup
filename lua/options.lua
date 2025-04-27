@@ -7,9 +7,6 @@ vim.g.rooter_silent_chdir = 1
 
 vim.keymap.set("i", "<C-BS>", "<C-w>", { noremap = true, silent = true })
 
-vim.cmd('syntax on')
-vim.bo.filetype = 'markdown'
-
 -- Execute current .py file
 vim.keymap.set("n", "<F5>", ":w<CR>:!python3 %<CR>", { noremap = true, silent = true })
 
