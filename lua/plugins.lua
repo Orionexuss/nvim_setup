@@ -237,6 +237,10 @@ return require("lazy").setup({
 		end,
 	},
 
+	{
+		"tinted-theming/tinted-vim",
+	},
+
 	-- mini.indentscope plugin
 	{
 		"echasnovski/mini.indentscope",
