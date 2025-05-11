@@ -272,6 +272,12 @@ return require("lazy").setup({
 			vim.keymap.set("n", "<leader>ve", function()
 				require("swenv.api").pick_venv()
 			end, { desc = "Pick and set Python venv" })
+
+			require("swenv").setup({
+				post_set_venv = function()
+					vim.cmd("LspRestart")
+				end,
+			})
 		end,
 	},
 
