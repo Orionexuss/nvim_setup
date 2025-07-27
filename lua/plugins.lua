@@ -44,28 +44,22 @@ return require("lazy").setup({
 
 	-- Mason plugin
 	{
-		"williamboman/mason.nvim",
+		"mason-org/mason-lspconfig.nvim",
+		opts = {},
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
 		config = function()
-			require("mason").setup({
+			require("mason-lspconfig").setup({
+				automatic_enable = true,
 				ensure_installed = {
-					"stylua",
-					"selene",
-					"luacheck",
-					"shellcheck",
-					"shfmt",
-					"tailwindcss-language-server",
-					"typescript-language-server",
-					"css-lsp",
-					"tsserver",
-					"html",
-					"cssls",
-					"black",
-					"emmet-ls",
+					"ts_ls",
+					"lua_ls",
 					"pyright",
-					"flake8",
-					"isort",
-					"lua-language-server",
-					"prettier",
+					"rust_analyzer",
+					"bashls",
+					"html",
 				},
 			})
 		end,
@@ -228,17 +222,13 @@ return require("lazy").setup({
 			end
 
 			require("lualine").setup({
-				options = { theme = "base16" },
+				options = { theme = "nightfly" },
 				sections = {
 					lualine_c = { "filename" },
 					lualine_z = { get_virtualenv },
 				},
 			})
 		end,
-	},
-
-	{
-		"tinted-theming/tinted-vim",
 	},
 
 	-- mini.indentscope plugin
@@ -299,10 +289,9 @@ return require("lazy").setup({
 
 	{ "folke/tokyonight.nvim" },
 
-	--[[ { 'github/copilot.vim' },
-  { 
-    "zbirenbaum/copilot.lua",
-    		opts = {
+	{
+		"zbirenbaum/copilot.lua",
+		opts = {
 			suggestion = {
 				auto_trigger = true,
 				keymap = {
@@ -317,10 +306,10 @@ return require("lazy").setup({
 			filetypes = {
 				markdown = true,
 				help = true,
-        terminal = true,
+				terminal = true,
 			},
 		},
-  }, ]]
+	},
 
 	{
 		"ellisonleao/gruvbox.nvim",
@@ -345,87 +334,106 @@ return require("lazy").setup({
 		opts = {},
     -- stylua: ignore
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "SS", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+      { "SS",    mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+      { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
     },
 	},
 	{ "miikanissi/modus-themes.nvim" },
 
-    {
-      'mrcjkb/rustaceanvim',
-      version = '^6', -- Recommended
-      lazy = false, -- This plugin is already lazy
-      ft = "rust",
-      config = function ()
-        local mason_registry = require('mason-registry')
-        local codelldb = mason_registry.get_package("codelldb")
-        local extension_path = codelldb:get_install_path() .. "/extension/"
-        local codelldb_path = extension_path .. "adapter/codelldb"
-        local liblldb_path = extension_path.. "lldb/lib/liblldb.dylib"
-    -- If you are on Linux, replace the line above with the line below:
-    -- local liblldb_path = extension_path .. "lldb/lib/liblldb.so"
-        local cfg = require('rustaceanvim.config')
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^6",
+		lazy = false,
+		ft = "rust",
+		config = function()
+			local mason_data = vim.fn.stdpath("data") .. "/mason/packages"
 
-        vim.g.rustaceanvim = {
-          dap = {
-            adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
-          },
-        }
-      end
-    },
+			local install_path = mason_data .. "/codelldb"
+			local extension_dir = install_path .. "/extension"
+			local adapter_path = extension_dir .. "/adapter/codelldb"
+			local liblldb_path = extension_dir .. "/lldb/lib/liblldb.so"
 
-    {
-      'rust-lang/rust.vim',
-      ft = "rust",
-      init = function ()
-        vim.g.rustfmt_autosave = 1
-      end
-    },
+			if vim.fn.isdirectory(install_path) == 0 then
+				vim.notify(
+					"Couldn't find codelldb in:\n  "
+						.. install_path
+						.. "\nExecute :MasonInstall codelldb and reload Neovim",
+					vim.log.levels.ERROR
+				)
+				return
+			end
 
-    {
-      'mfussenegger/nvim-dap',
-      config = function()
-        local dap, dapui = require("dap"), require("dapui")
-        dap.listeners.before.attach.dapui_config = function()
-          dapui.open()
-        end
-        dap.listeners.before.launch.dapui_config = function()
-          dapui.open()
-        end
-        dap.listeners.before.event_terminated.dapui_config = function()
-          dapui.close()
-        end
-        dap.listeners.before.event_exited.dapui_config = function()
-          dapui.close()
-        end
-      end,
-    },
+			local cfg = require("rustaceanvim.config")
+			vim.g.rustaceanvim = {
+				dap = {
+					adapter = cfg.get_codelldb_adapter(adapter_path, liblldb_path),
+				},
+			}
+		end,
+	},
 
-    {
-      'rcarriga/nvim-dap-ui', 
-      dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
-      config = function()
-        require("dapui").setup()
-      end,
-    },
+	{
+		"rust-lang/rust.vim",
+		ft = "rust",
+		init = function()
+			vim.g.rustfmt_autosave = 1
+		end,
+	},
 
-  {
-    'saecki/crates.nvim',
-    ft = {"toml"},
-    config = function()
-      require("crates").setup {
-        completion = {
-          cmp = {
-            enabled = true
-          },
-        },
-      }
-      require('cmp').setup.buffer({
-        sources = { { name = "crates" }}
-      })
-    end
-  },
+	{
+		"mfussenegger/nvim-dap",
+		config = function()
+			local dap, dapui = require("dap"), require("dapui")
+			dap.listeners.before.attach.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.launch.dapui_config = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated.dapui_config = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited.dapui_config = function()
+				dapui.close()
+			end
+		end,
+	},
+
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+		config = function()
+			require("dapui").setup()
+		end,
+	},
+
+	{
+		"saecki/crates.nvim",
+		ft = { "toml" },
+		config = function()
+			require("crates").setup({
+				completion = {
+					cmp = {
+						enabled = true,
+					},
+				},
+			})
+			require("cmp").setup.buffer({
+				sources = { { name = "crates" } },
+			})
+		end,
+	},
+
+	{
+		"bluz71/vim-nightfly-colors",
+		name = "nightfly",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			vim.g.nightflyTransparent = true
+		end,
+	},
 })
