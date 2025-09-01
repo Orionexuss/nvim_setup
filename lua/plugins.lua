@@ -292,7 +292,7 @@ return require("lazy").setup({
 				keymap = {
 					accept = "<C-l>",
 					accept_word = "<M-l>",
-					accept_line = "<M-S-l>",
+					accept_line = "<M-C-l>",
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-]>",
@@ -431,8 +431,7 @@ return require("lazy").setup({
 			require("crates").setup({
 				lsp = {
 					enabled = true,
-					on_attach = function(client, bufnr)
-					end,
+					on_attach = function(client, bufnr) end,
 					actions = true,
 					completion = true,
 					hover = true,
@@ -449,5 +448,13 @@ return require("lazy").setup({
 		config = function()
 			vim.g.nightflyTransparent = true
 		end,
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "InsertEnter",
+		opts = {
+      doc_lines = 0,
+      hint_prefix = "󰅬 "
+		},
 	},
 })
