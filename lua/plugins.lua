@@ -54,8 +54,10 @@ return require("lazy").setup({
 			require("mason-lspconfig").setup({
 				automatic_installation = true, -- Enable automatic installation
 				ensure_installed = {
-					"rust_analyzer", -- Only install rust_analyzer via Mason
+					-- "lua_ls", "pyright", "tsserver", etc.
 				},
+				-- Excluir rust-analyzer ya que rustaceanvim lo maneja
+				automatic_installation_exclude = { "rust_analyzer" },
 			})
 		end,
 	},
@@ -338,56 +340,11 @@ return require("lazy").setup({
 	},
 	{ "miikanissi/modus-themes.nvim" },
 
-	-- {
-	-- 	"mrcjkb/rustaceanvim",
-	-- 	version = "^6",
-	-- 	lazy = false,
-	-- 	ft = "rust",
-	-- 	config = function()
-	-- 		local mason_data = vim.fn.stdpath("data") .. "/mason/packages"
-
-	-- 		local install_path = mason_data .. "/codelldb"
-	-- 		local extension_dir = install_path .. "/extension"
-	-- 		local adapter_path = extension_dir .. "/adapter/codelldb"
-	-- 		local liblldb_path = extension_dir .. "/lldb/lib/liblldb.so"
-
-	-- 		if vim.fn.isdirectory(install_path) == 0 then
-	-- 			vim.notify(
-	-- 				"Couldn't find codelldb in:\n  "
-	-- 					.. install_path
-	-- 					.. "\nExecute :MasonInstall codelldb and reload Neovim",
-	-- 				vim.log.levels.ERROR
-	-- 			)
-	-- 			return
-	-- 		end
-
-	-- 		-- Define on_attach function for RustaceanVim
-	-- 		local on_attach = function(client, bufnr)
-	-- 			-- Show hover documentation with 'K' in Normal mode
-	-- 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {
-	-- 				noremap = true,
-	-- 				silent = true,
-	-- 				buffer = bufnr,
-	-- 				desc = "LSP Hover Documentation",
-	-- 			})
-	-- 		end
-
-	-- 		local cfg = require("rustaceanvim.config")
-	-- 		vim.g.rustaceanvim = {
-	-- 			tools = {
-	-- 				hover_actions = {
-	-- 					auto_focus = true,
-	-- 				},
-	-- 			},
-	-- 			server = {
-	-- 				on_attach = false, -- Disable LSP functionality
-	-- 			},
-	-- 			dap = {
-	-- 				adapter = cfg.get_codelldb_adapter(adapter_path, liblldb_path),
-	-- 			},
-	-- 		}
-	-- 	end,
-	-- },
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^6", -- Recommended
+		lazy = false,
+	},
 
 	{
 		"rust-lang/rust.vim",
@@ -453,8 +410,8 @@ return require("lazy").setup({
 		"ray-x/lsp_signature.nvim",
 		event = "InsertEnter",
 		opts = {
-      doc_lines = 0,
-      hint_prefix = "󰅬 "
+			doc_lines = 0,
+			hint_prefix = "󰅬 ",
 		},
 	},
 })
