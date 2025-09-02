@@ -13,7 +13,7 @@ cmp.setup({
     -- Configure completion window with borders
     completion = cmp.config.window.bordered(),
     -- Configure documentation window with borders
-    documentation = cmp.config.window.bordered(),
+    documentation = cmp.config.disable -- cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     -- Scroll documentation up

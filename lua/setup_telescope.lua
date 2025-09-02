@@ -38,7 +38,7 @@ require('telescope').setup({
 require('telescope').load_extension('harpoon')
 
 -- Keymaps for lsp
-vim.keymap.set('n', 'gd', function() require('telescope.builtin').lsp_definitions({jump_type = "drop"}) end, { noremap = true, silent = true })
+vim.keymap.set('n', 'gd', "<C-]>", { noremap = true, silent = true })
 vim.keymap.set('n', 'gD', function() require('telescope.builtin').lsp_declarations() end, { noremap = true, silent = true })
 vim.keymap.set('n', 'gi', function() require('telescope.builtin').lsp_implementations() end, { noremap = true, silent = true })
 vim.keymap.set('n', 'gr', function() require('telescope.builtin').lsp_references() end, { noremap = true, silent = true })
