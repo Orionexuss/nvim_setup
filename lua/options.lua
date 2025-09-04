@@ -141,7 +141,7 @@ vim.opt.scrolloff = 5
 vim.keymap.set("n", "<esc>", "<cmd>nohlsearch<cr>")
 
 -- Neotre toggle
-vim.keymap.set("n", "<A-n>", "<cmd>Neotree toggle<cr>")
+vim.keymap.set("n", "<A-.>", "<cmd>Neotree toggle<cr>")
 
 -- diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "open diagnostic [q]uickfix list" })

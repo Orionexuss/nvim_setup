@@ -426,4 +426,8 @@ return require("lazy").setup({
 			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next context" })
 		end,
 	},
+
+	{
+		"RRethy/vim-illuminate",
+	},
 })
