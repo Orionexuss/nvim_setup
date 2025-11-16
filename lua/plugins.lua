@@ -61,29 +61,35 @@ return require("lazy").setup({
 
 	-- nvim-cmp and Snippets plugin for autocompletion
 	{
+		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+		dependencies = {
+			{
+				"mlaursen/vim-react-snippets",
+				opts = {
+					readonly_props = true, -- Set to `false` if all props should no longer be wrapped in `Readonly<T>`.
+					test_framework = "@jest/globals", -- Set to "vitest" if you use vitest
+					test_renderer_path = "@testing-library/user-event", -- Set to a custom test renderer. For example "@/test-utils"
+				},
+			},
+		},
+	},
+
+	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
-			"mlaursen/vim-react-snippets",
 			"rafamadriz/friendly-snippets",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			{ "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
-
-			{
-				"L3MON4D3/LuaSnip",
-				build = "make install_jsregexp",
-			},
 			"saadparwaiz1/cmp_luasnip",
 		},
 		opts = function(_, opts)
 			opts.formatting = {
 				format = require("tailwindcss-colorizer-cmp").formatter,
 			}
-			require("vim-react-snippets")
-			local config = require("vim-react-snippets.config")
-			config.readonly_props = false
 		end,
 		config = function()
 			require("setup_cmp")
