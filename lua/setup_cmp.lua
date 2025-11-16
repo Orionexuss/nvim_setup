@@ -73,56 +73,57 @@ cmp.setup.cmdline(':', {
 })
 
 
--- Setup for lspconfig
+-- Setup for vim.lsp.config
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Configure TypeScript language server
-require('lspconfig').ts_ls.setup {
-  capabilities = capabilities
-}
-
--- Configure Lua language server
-require('lspconfig').lua_ls.setup {
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT', -- Use the runtime version that Neovim uses
-      },
-      diagnostics = {
-        globals = { 'vim' }, -- Recognize 'vim' as global to avoid errors
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true), -- Include Neovim runtime
-        checkThirdParty = false,                           -- Disable third-party dependency warning
-      },
-      telemetry = {
-        enable = false, -- Disable telemetry
-      },
-    },
-  },
-}
-
-
-
-require("lspconfig").emmet_ls.setup({
-  cmd = {
-    vim.fn.stdpath("data") .. "/mason/bin/emmet-ls",
-    "--stdio"
-  },
-  filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue", "svelte", "php", "markdown" },
-  init_options = {
-    html = {
-      options = {}
-    }
-  },
-  capabilities = require("cmp_nvim_lsp").default_capabilities(),
+vim.lsp.config("ts_ls", {
+    capabilities = capabilities
 })
 
-require('lspconfig').html.setup {
-  capabilities = capabilities,
-}
+-- Configure Lua language server
+vim.lsp.config("lua_ls", {
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT', -- Use the runtime version that Neovim uses
+            },
+            diagnostics = {
+                globals = { 'vim' }, -- Recognize 'vim' as global to avoid errors
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true), -- Include Neovim runtime
+                checkThirdParty = false,                           -- Disable third-party dependency warning
+            },
+            telemetry = {
+                enable = false, -- Disable telemetry
+            },
+        },
+    },
+})
 
-require('lspconfig').cssls.setup {
-  capabilities = capabilities,
-}
+
+
+vim.lsp.config("emmet_ls", {
+    cmd = {
+        vim.fn.stdpath("data") .. "/mason/bin/emmet-ls",
+        "--stdio"
+    },
+    filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue", "svelte", "php", "markdown" },
+    init_options = {
+        html = {
+            options = {}
+        }
+    },
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+})
+
+vim.lsp.config("html", {
+    capabilities = capabilities,
+})
+
+vim.lsp.config("cssls", {
+    capabilities = capabilities,
+})
+

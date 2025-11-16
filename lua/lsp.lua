@@ -1,4 +1,4 @@
-local lspconfig = require("lspconfig")
+local lspconfig = vim.lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -18,7 +18,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Pyright setup
-lspconfig.pyright.setup({
+lspconfig.config("pyright", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	handlers = {
@@ -39,46 +39,13 @@ lspconfig.pyright.setup({
 	},
 })
 
-
-lspconfig.eslint.setup({
-})
+lspconfig.config("eslint", {})
 
 -- TypeScript setup
-lspconfig.ts_ls.setup({
-	on_attach = on_attach,
-	capabilities = capabilities,
-	root_dir = function(...)
-		return require("lspconfig.util").root_pattern(".git")(...)
-	end,
-	single_file_support = false,
-	settings = {
-		typescript = {
-			inlayHints = {
-				includeInlayParameterNameHints = "literal",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHints = false,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
-			},
-		},
-		javascript = {
-			inlayHints = {
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
-			},
-		},
-	},
-})
+vim.lsp.enable("ts_ls")
 
 -- Lua setup
-lspconfig.lua_ls.setup({
+lspconfig.config("lua_ls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	single_file_support = true,
@@ -151,13 +118,13 @@ lspconfig.lua_ls.setup({
 })
 
 -- CSS setup
-lspconfig.cssls.setup({
+lspconfig.config("cssls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
 
 -- TailwindCSS setup
-lspconfig.tailwindcss.setup({
+lspconfig.config("tailwindcss", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	root_dir = function(...)
@@ -166,13 +133,13 @@ lspconfig.tailwindcss.setup({
 })
 
 -- HTML setup
-lspconfig.html.setup({
+lspconfig.config("html", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 })
 
 -- YAML setup
-lspconfig.yamlls.setup({
+lspconfig.config("yamlls", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	settings = {

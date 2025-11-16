@@ -81,7 +81,7 @@ return require("lazy").setup({
 			opts.formatting = {
 				format = require("tailwindcss-colorizer-cmp").formatter,
 			}
-			require("vim-react-snippets").lazy_load()
+			require("vim-react-snippets")
 			local config = require("vim-react-snippets.config")
 			config.readonly_props = false
 		end,
@@ -135,6 +135,14 @@ return require("lazy").setup({
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "codecompanion" },
+		config = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "codecompanion",
+				callback = function()
+					vim.bo.filetype = "markdown"
+				end,
+			})
+		end,
 	},
 	{ "godlygeek/tabular" },
 	{ "preservim/vim-markdown" },
@@ -290,8 +298,8 @@ return require("lazy").setup({
 				auto_trigger = true,
 				keymap = {
 					accept = "<C-l>",
-					accept_word = "<M-l>",
-					accept_line = "<M-C-l>",
+					accept_word = "<M-,>",
+					accept_line = "<M-m>",
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-]>",
@@ -403,6 +411,7 @@ return require("lazy").setup({
 			vim.g.nightflyTransparent = true
 		end,
 	},
+
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "InsertEnter",
@@ -430,4 +439,6 @@ return require("lazy").setup({
 	{
 		"RRethy/vim-illuminate",
 	},
+
+	{ "mxsdev/nvim-dap-vscode-js", requires = { "mfussenegger/nvim-dap" } },
 })

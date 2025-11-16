@@ -7,7 +7,7 @@ vim.g.rooter_silent_chdir = 1
 vim.keymap.set("i", "<C-BS>", "<C-w>", { noremap = true, silent = true })
 
 -- Execute current .py file
-vim.keymap.set("n", "<F5>", ":w<CR>:!python3 %<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("n", "<F5>", ":w<CR>:!python3 %<CR>", { noremap = true, silent = true })
 
 vim.g.python3_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
 vim.g.python_host_prog = "~/.pyenv/versions/3.13.1/bin/python"
@@ -170,3 +170,9 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 vim.opt.fillchars:append({ eob = " " })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "codecompanion",
+  callback = function()
+    vim.bo.filetype = "markdown"
+  end,
+})

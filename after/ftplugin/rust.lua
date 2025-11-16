@@ -12,6 +12,6 @@ vim.keymap.set("n", "<leader>r", function()
 	vim.cmd.RustLsp("runnables")
 end, { silent = true, buffer = bufnr })
 
-vim.keymap.set("n", "<leader>db", function()
+vim.keymap.set("n", "<leader>dv", function()
 	vim.cmd.RustLsp("debuggables")
 end, { silent = true, buffer = bufnr })
