@@ -1,5 +1,10 @@
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "lua", "python", "javascript", "html", "css", "markdown", "markdown_inline" },
+local ok, ts_configs = pcall(require, "nvim-treesitter.configs")
+if not ok then
+    return
+end
+
+ts_configs.setup {
+    ensure_installed = { "lua", "python", "javascript", "html", "css", "markdown", "markdown_inline", "yaml" },
     sync_install = false,
     modules = {},
     autotag = {
@@ -12,7 +17,7 @@ require'nvim-treesitter.configs'.setup {
 	 -- disable = { "markdown", "markdown_inline" },
         additional_vim_regex_highlighting = false,
     },
-    inden = {
+    indent = {
         enable = true,
     },
     incremental_selection = {

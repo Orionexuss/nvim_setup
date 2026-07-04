@@ -23,6 +23,9 @@ return require("lazy").setup({
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()
 		end,
+		config = function()
+			require("treesitter")
+		end,
 	},
 
 	-- Visual Multi plugin
@@ -151,7 +154,7 @@ return require("lazy").setup({
 		end,
 	},
 	{ "godlygeek/tabular" },
-	{ "preservim/vim-markdown" },
+--[[ 	{ "preservim/vim-markdown" }, ]]
 
 	-- markdown-preview plugin
 	{

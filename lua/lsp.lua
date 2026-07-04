@@ -4,26 +4,20 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("luasnip.loaders.from_vscode").lazy_load()
 
 -- on_attach function: runs whenever an LSP server attaches to a buffer
-local on_attach = function(client, bufnr)
-	-- Show hover documentation with 'K' in Normal mode
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, {
-		noremap = true,
-		silent = true,
-		buffer = bufnr,
-		desc = "LSP Hover Documentation",
-	})
-
-	-- You can add more LSP-related keymaps here if needed
-	-- e.g. vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { buffer = bufnr })
-end
+vim.keymap.set("n", "K", function()
+  vim.lsp.buf.hover({ border = "rounded" })
+end, {
+  noremap = true,
+  silent = true,
+  buffer = bufnr,
+  desc = "LSP Hover Documentation",
+})
 
 -- Pyright setup
 lspconfig.config("pyright", {
 	on_attach = on_attach,
 	capabilities = capabilities,
 	handlers = {
-		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-		["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 	},
 	settings = {
 		python = {
