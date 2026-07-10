@@ -1,3 +1,4 @@
+local copilot_use_response_api = false
 return {
 	"yetone/avante.nvim",
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
@@ -7,13 +8,13 @@ return {
 	event = "VeryLazy",
 	version = false, -- Never set this value to "*"! Never!
 	---@module 'avante'
-	---@type avante.Config
+	---@type any
 	opts = {
 		-- add any opts here
 		-- this file can contain specific instructions for your project
 		instructions_file = "avante.md",
 		-- for example
-		provider = "chatgpt", -- Set ChatGPT as the provider
+		provider = "copilot", -- Set Copilot as the provider
 		providers = {
 			claude = {
 				endpoint = "https://api.anthropic.com",
@@ -38,6 +39,22 @@ return {
 				api_key = os.getenv("OPENAI_API_KEY"), -- Set this env var with your OpenAI API key
 				extra_request_body = {
 					temperature = 1, -- Only value supported by gpt-5-mini
+				},
+			},
+			copilot = {
+				endpoint = "https://api.githubcopilot.com",
+				model = "claude-haiku-4.5",
+				proxy = nil, -- [protocol://]host[:port] Use this proxy
+				allow_insecure = false, -- Allow insecure server connections
+				timeout = 30000, -- Timeout in milliseconds
+				context_window = 64000, -- Number of tokens to send to the model for context
+				use_response_api = copilot_use_response_api, -- Automatically switch to Response API for GPT-5 Codex models
+				support_previous_response_id = false, -- Copilot doesn't support previous_response_id, must send full history
+				-- NOTE: Copilot doesn't support previous_response_id, always sends full conversation history including tool_calls
+				-- NOTE: Response API doesn't support some parameters like top_p, frequency_penalty, presence_penalty
+				extra_request_body = {
+					-- temperature is not supported by Response API for reasoning models
+					max_tokens = 20480,
 				},
 			},
 		},

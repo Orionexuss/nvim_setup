@@ -4,7 +4,7 @@ if not ok then
 end
 
 ts_configs.setup {
-    ensure_installed = { "lua", "python", "javascript", "html", "css", "markdown", "markdown_inline", "yaml" },
+    ensure_installed = { "lua", "python", "javascript", "html", "css", "markdown", "markdown_inline", "yaml", "rust" },
     sync_install = false,
     modules = {},
     autotag = {

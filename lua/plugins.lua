@@ -5,7 +5,6 @@ return require("lazy").setup({
 	-- Telescope plugin
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-live-grep-args.nvim",
@@ -356,7 +355,7 @@ return require("lazy").setup({
 
 	{
 		"mrcjkb/rustaceanvim",
-		version = "^6", -- Recommended
+		version = "^9", -- Recommended
 		lazy = false,
 	},
 

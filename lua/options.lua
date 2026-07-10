@@ -80,9 +80,20 @@ vim.g.have_nerd_font = true
 
 vim.keymap.set("n", "<leader>gg", "<cmd>LazyGit<CR>", { noremap = true, silent = true })
 
-for _, mode in ipairs({ "n", "v" }) do
-	vim.keymap.set(mode, "<leader>ai", ":CodeCompanionChat<CR>", { noremap = true, silent = true })
-end
+vim.keymap.set({ "n", "v" }, "<leader>ai", function()
+	local codecompanion = require("codecompanion")
+	local context = require("codecompanion.utils.context").get(vim.api.nvim_get_current_buf())
+	codecompanion.chat({
+		context = context,
+		auto_submit = false,
+		messages = {
+			{
+				role = "user",
+				content = "#{buffer}",
+			},
+		},
+	})
+end, { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true })
 
@@ -171,8 +182,39 @@ vim.opt.smartindent = true
 
 vim.opt.fillchars:append({ eob = " " })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "codecompanion",
-  callback = function()
-    vim.bo.filetype = "markdown"
-  end,
+	pattern = "codecompanion",
+	callback = function()
+		vim.bo.filetype = "markdown"
+	end,
+})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+	pattern = "*",
+	callback = function(args)
+		local bufnr = args.buf
+		if not vim.api.nvim_buf_is_valid(bufnr) then
+			return
+		end
+
+		local name = vim.api.nvim_buf_get_name(bufnr)
+		if not name:match("%[CodeCompanion%]") then
+			return
+		end
+
+		vim.defer_fn(function()
+			if not vim.api.nvim_buf_is_valid(bufnr) then
+				return
+			end
+
+			local wins = vim.fn.win_findbuf(bufnr)
+			local winid = wins and wins[1] or -1
+			if winid == -1 or not vim.api.nvim_win_is_valid(winid) then
+				return
+			end
+
+			local row, col = unpack(vim.api.nvim_win_get_cursor(winid))
+			local last_line = vim.api.nvim_buf_line_count(bufnr)
+			vim.api.nvim_win_set_cursor(winid, { math.min(row + 2, last_line), col })
+		end, 150)
+	end,
 })
